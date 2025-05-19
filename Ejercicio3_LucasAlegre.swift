@@ -61,6 +61,7 @@ class Reloj{
         }
     }
 
+
     func AddReloj(newReloj:Reloj){
         self.hora=newReloj.hora
         self.minutos=newReloj.minutos
