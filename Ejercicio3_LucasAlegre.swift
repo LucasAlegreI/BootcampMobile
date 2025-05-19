@@ -50,7 +50,7 @@ class Reloj{
         if self.hora<23{
             self.hora+=1
         }else{
-            self.hora=0
+               self.hora=0
         }
     }
     
