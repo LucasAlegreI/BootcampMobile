@@ -53,6 +53,14 @@ class Reloj{
             self.hora=0
         }
     }
+    
+    func AgregarHoras(horas: Int) {
+        self.hora = (self.hora + horas) % 24
+        if self.hora < 0 {
+            self.hora += 24
+        }
+    }
+
     func AddReloj(newReloj:Reloj){
         self.hora=newReloj.hora
         self.minutos=newReloj.minutos
@@ -125,6 +133,9 @@ class RelojDemo{
             newReloj.Tick()
             print(newReloj.ToString())
         }
+        print("Agregando 5 horas...")
+        newReloj.AgregarHoras(horas: 5)
+        print(newReloj.ToString())
         newReloj.RestaReloj(newReloj: Reloj())
         print(newReloj.ToString())
     }
