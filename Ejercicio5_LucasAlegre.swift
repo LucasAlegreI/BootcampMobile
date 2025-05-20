@@ -35,9 +35,8 @@ class Generala{
                 default: break
             }
         }
-        if (tienePar&&tieneTrio){
-            return 2
-        }
-        return 4
+        return if(tienePar&&tieneTrio){
+            2
+        }else { 4 }
     }
 }
