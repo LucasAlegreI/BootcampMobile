@@ -45,7 +45,7 @@ class Poker {
     func checkEscalera(cards: [Card]) -> (Bool, [Int]) {
         var cardsValues: [Int] = []
         for card in cards {
-            cardsValues.append(card.returnNumericValue())
+            cardsValues.append(card.returnNumericValue(asFourteen: false))
         }
         cardsValues.sort()
         if cardsValues[0] == 1 && cardsValues[1] > 9 {
@@ -70,7 +70,8 @@ class Poker {
     func checkOtherGames(cards: [Card]) -> (Int, [Int]) {
         var conteo: [Int: Int] = [:]
         for card in cards {
-            conteo[card.returnNumericValueA14()] = (conteo[card.returnNumericValueA14()] ?? 0) + 1
+            conteo[card.returnNumericValue(asFourteen: true)] =
+                (conteo[card.returnNumericValue(asFourteen: true)] ?? 0) + 1
         }
         let cantidadesOrdenadas = conteo.sorted { $0.value > $1.value }
         if cantidadesOrdenadas[0].value == 4 {
@@ -83,20 +84,9 @@ class Poker {
             }
         } else if cantidadesOrdenadas[0].value == 2 {
             if cantidadesOrdenadas[1].value == 2 {
-                return (
-                    6,
-                    [cantidadesOrdenadas[0].key, cantidadesOrdenadas[1].key]
-                        + [cantidadesOrdenadas[2].key].sorted(by: >)
-                )
+                return (6,[cantidadesOrdenadas[0].key, cantidadesOrdenadas[1].key] + [cantidadesOrdenadas[2].key].sorted(by: >))
             } else {
-                return (
-                    7,
-                    [cantidadesOrdenadas[0].key]
-                        + [
-                            cantidadesOrdenadas[1].key, cantidadesOrdenadas[2].key,
-                            cantidadesOrdenadas[3].key,
-                        ].sorted(by: >)
-                )
+                return (7, [cantidadesOrdenadas[0].key] + [cantidadesOrdenadas[1].key, cantidadesOrdenadas[2].key, cantidadesOrdenadas[3].key].sorted(by: >))
             }
         }
         return (8, convertCardsToInt(cards: cards))
@@ -104,7 +94,7 @@ class Poker {
     func convertCardsToInt(cards: [Card]) -> [Int] {
         var cardsValues: [Int] = []
         for card in cards {
-            cardsValues.append(card.returnNumericValueA14())
+            cardsValues.append(card.returnNumericValue(asFourteen: true))
         }
         cardsValues.sort(by: >)
         return cardsValues
@@ -123,17 +113,12 @@ class Poker {
         }
     }
     func findBetter(values1: (Int, [Int]), values2: (Int, [Int])) -> String {
-        if values1.0 < values2.0 {
-            return "Ganador equipo 1"
-        } else if values1.0 > values2.0 {
-            return "Ganador equipo 2"
-        } else {
-            for i in 0..<values1.1.count {
-                if values1.1[i] > values2.1[i] {
-                    return "Ganado equipo 1"
-                } else if values1.1[i] < values2.1[i] {
-                    return "Ganador equipo 2"
-                }
+        if values1.0 != values2.0 {
+            return values1.0 < values2.0 ? "Ganador equipo 1" : "Ganador equipo 2"
+        }
+        for (a, b) in zip(values1.1, values2.1) {
+            if a != b {
+                return a > b ? "Ganador equipo 1" : "Ganador equipo 2"
             }
         }
         return "Empate"
@@ -159,21 +144,12 @@ struct Card: Equatable {
             default: "D"
             }
     }
-    func returnNumericValue() -> Int {
+    func returnNumericValue(asFourteen: Bool) -> Int {
         return switch self.valorNumerico {
         case "K": 13
         case "Q": 12
         case "J": 11
-        case "A": 1
-        default: Int(self.valorNumerico)!
-        }
-    }
-    func returnNumericValueA14() -> Int {
-        return switch self.valorNumerico {
-        case "K": 13
-        case "Q": 12
-        case "J": 11
-        case "A": 14
+        case "A": asFourteen ? 14 : 1
         default: Int(self.valorNumerico)!
         }
     }
