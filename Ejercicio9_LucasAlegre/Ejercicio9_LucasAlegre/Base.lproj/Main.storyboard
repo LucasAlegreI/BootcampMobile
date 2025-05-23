@@ -17,9 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-1G-n2J">
-                                <rect key="frame" x="16" y="118" width="369" height="666"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="skK-8O-71w" userLabel="Player1Name">
                                 <rect key="frame" x="80" y="118" width="241" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -267,16 +264,14 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2m8-js-M2n" secondAttribute="trailing" constant="34" id="3kV-xJ-dCE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xmp-4u-S6p" secondAttribute="trailing" constant="80" id="3v9-yv-YJH"/>
                             <constraint firstItem="2m8-js-M2n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="Aia-Xp-QI4"/>
                             <constraint firstItem="KOV-OL-myd" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="B16-x7-K6m"/>
-                            <constraint firstItem="HdU-1G-n2J" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="F9C-mU-beN"/>
                             <constraint firstItem="skK-8O-71w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="FuM-ix-9sD"/>
                             <constraint firstItem="2m8-js-M2n" firstAttribute="top" secondItem="V3H-4x-OMG" secondAttribute="bottom" constant="23" id="GKq-Lv-qW2"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="HdU-1G-n2J" secondAttribute="bottom" id="Jsy-hC-qFT"/>
                             <constraint firstItem="V3H-4x-OMG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Loh-IY-Kl6"/>
                             <constraint firstItem="V3H-4x-OMG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="OsQ-1S-4O8"/>
                             <constraint firstItem="KOV-OL-myd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="98" id="QJk-hv-tX5"/>
@@ -285,9 +280,7 @@
                             <constraint firstItem="Xmp-4u-S6p" firstAttribute="top" secondItem="skK-8O-71w" secondAttribute="bottom" constant="26" id="jRM-AP-d6q"/>
                             <constraint firstItem="skK-8O-71w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="piE-aW-sTX"/>
                             <constraint firstItem="Xmp-4u-S6p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="ptZ-hw-fkH"/>
-                            <constraint firstItem="HdU-1G-n2J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="srg-6s-8cl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KOV-OL-myd" secondAttribute="trailing" constant="98" id="u8k-ee-bCS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="HdU-1G-n2J" secondAttribute="trailing" id="xiv-xJ-GpG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -305,7 +298,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Background" width="480" height="360"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -314,6 +306,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
