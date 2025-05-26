@@ -33,19 +33,6 @@
                                     <action selector="player2NameChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="y3G-0g-00q"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOV-OL-myd">
-                                <rect key="frame" x="98" y="749.66666666666663" width="205" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Repartir">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" name="AccentColor"/>
-                                    </backgroundConfiguration>
-                                    <color key="baseForegroundColor" systemColor="groupTableViewBackgroundColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="playButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fw2-gf-B82"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="V3H-4x-OMG">
                                 <rect key="frame" x="34" y="118" width="333" height="128"/>
                                 <subviews>
@@ -262,25 +249,38 @@
                                     <constraint firstAttribute="height" constant="128" id="N3Z-Yf-6Vu"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOV-OL-myd">
+                                <rect key="frame" x="102" y="237" width="197" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Repartir">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" systemColor="groupTableViewBackgroundColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="playButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fw2-gf-B82"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
+                            <constraint firstItem="KOV-OL-myd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="102" id="2e9-M4-EZk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2m8-js-M2n" secondAttribute="trailing" constant="34" id="3kV-xJ-dCE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xmp-4u-S6p" secondAttribute="trailing" constant="80" id="3v9-yv-YJH"/>
                             <constraint firstItem="2m8-js-M2n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="Aia-Xp-QI4"/>
-                            <constraint firstItem="KOV-OL-myd" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="B16-x7-K6m"/>
                             <constraint firstItem="skK-8O-71w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="FuM-ix-9sD"/>
                             <constraint firstItem="2m8-js-M2n" firstAttribute="top" secondItem="V3H-4x-OMG" secondAttribute="bottom" constant="23" id="GKq-Lv-qW2"/>
                             <constraint firstItem="V3H-4x-OMG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Loh-IY-Kl6"/>
                             <constraint firstItem="V3H-4x-OMG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="OsQ-1S-4O8"/>
-                            <constraint firstItem="KOV-OL-myd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="98" id="QJk-hv-tX5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KOV-OL-myd" secondAttribute="trailing" constant="102" id="OvJ-eo-Wun"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="V3H-4x-OMG" secondAttribute="trailing" constant="34" id="ddx-mp-N7C"/>
+                            <constraint firstItem="KOV-OL-myd" firstAttribute="top" secondItem="Xmp-4u-S6p" secondAttribute="bottom" constant="25" id="eEE-PH-Pyl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="skK-8O-71w" secondAttribute="trailing" constant="80" id="jJe-AS-say"/>
                             <constraint firstItem="Xmp-4u-S6p" firstAttribute="top" secondItem="skK-8O-71w" secondAttribute="bottom" constant="26" id="jRM-AP-d6q"/>
                             <constraint firstItem="skK-8O-71w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="piE-aW-sTX"/>
                             <constraint firstItem="Xmp-4u-S6p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="ptZ-hw-fkH"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KOV-OL-myd" secondAttribute="trailing" constant="98" id="u8k-ee-bCS"/>
                         </constraints>
                     </view>
                     <connections>

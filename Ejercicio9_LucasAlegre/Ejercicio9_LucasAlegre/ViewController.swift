@@ -35,37 +35,19 @@ class ViewController: UIViewController {
     }
     
     func checkWinner(ganador: Int) {
-        for i in backgrounds {
-            i.removeFromSuperview()
-        }
-        backgrounds.removeAll()
         if ganador == 0 {
             shotAlert(textToShow: "El ganador es: " + player1Name.text!)
-            addBackground(stackView: player1Hand, color: .green)
-            addBackground(stackView: player2Hand, color: .red)
+            player1Hand.backgroundColor = .green
+            player2Hand.backgroundColor = .red
         } else if ganador == 1 {
             shotAlert(textToShow: "El ganador es: " + player2Name.text!)
-            addBackground(stackView: player2Hand, color: .green)
-            addBackground(stackView: player1Hand, color: .red)
+            player1Hand.backgroundColor = .red
+            player2Hand.backgroundColor = .green
         } else {
             shotAlert(textToShow: "Empate")
-            addBackground(stackView: player1Hand, color: .blue)
-            addBackground(stackView: player2Hand, color: .blue)
+            player1Hand.backgroundColor = .blue
+            player2Hand.backgroundColor = .blue
         }
-    }
-    
-    func addBackground(stackView: UIStackView, color: UIColor) {
-        let fondo = UIView()
-        fondo.backgroundColor = color
-        fondo.translatesAutoresizingMaskIntoConstraints = false
-        stackView.insertSubview(fondo, at: 0)
-        NSLayoutConstraint.activate([
-            fondo.topAnchor.constraint(equalTo: stackView.topAnchor),
-            fondo.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            fondo.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            fondo.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-        ])
-        backgrounds.append(fondo)
     }
     
     func shotAlert(textToShow: String) {
@@ -98,6 +80,30 @@ class ViewController: UIViewController {
         player2Hand.isHidden = hide
         player1Name.isHidden = !hide
         player2Name.isHidden = !hide
+        if let superview = playButton.superview {
+            for constraint in superview.constraints {
+                if constraint.firstItem as? UIView == playButton || constraint.secondItem as? UIView == playButton {
+                    superview.removeConstraint(constraint)
+                }
+            }
+        }
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        if hide{
+            NSLayoutConstraint.activate([
+                playButton.topAnchor.constraint(equalTo: player2Name.bottomAnchor, constant: 25),
+                playButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 102),
+                playButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -102),
+                playButton.heightAnchor.constraint(equalToConstant: 34)
+                
+            ])
+        }else{
+            NSLayoutConstraint.activate([
+                playButton.topAnchor.constraint(equalTo: player2Hand.bottomAnchor, constant: 25),
+                playButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 102),
+                playButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -102),        
+                playButton.heightAnchor.constraint(equalToConstant: 34)
+            ])
+        }
     }
     
     @IBAction func player1NameChanged(_ sender: Any) {
