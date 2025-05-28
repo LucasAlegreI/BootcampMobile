@@ -1,4 +1,4 @@
-class Poker {
+class PokerController {
     var hand1: [Card] = []
     var hand2: [Card] = []
     var gameType1:(Int,[Int])?=nil

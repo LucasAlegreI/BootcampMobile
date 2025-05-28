@@ -23,7 +23,7 @@ class PokerViewController: UIViewController {
     }
     
     func StartGame(){
-        let newPokerController = Poker()
+        let newPokerController = PokerController()
         checkWinner(ganador: newPokerController.main())
         configurarMano(stack: player1Hand, mano: newPokerController.hand1)
         configurarMano(stack: player2Hand, mano: newPokerController.hand2)

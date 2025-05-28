@@ -7,11 +7,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var usuario2Label: UILabel!
     @IBOutlet weak var usuario1TxtField: UITextField!
     @IBOutlet weak var jugarButton: UIButton!
-    let gamesNames = ["Poker", "Tocame"]
+    let gamesNames = ["Poker", "Tocame", "Generala"]
     let gamePicker = UIPickerView()
     var selectedGameIndex: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        textToPicker.tintColor = .clear
         gamePicker.delegate = self
         gamePicker.dataSource = self
         textToPicker.delegate = self
@@ -65,23 +66,30 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         textToPicker.text = gamesNames[row]
         selectedGameIndex = row
-        if (row==1){
-            deleteTopConstrainstJugarButton()
-            NSLayoutConstraint.activate([
-                jugarButton.topAnchor.constraint(equalTo: usuario1TxtField.bottomAnchor, constant: 8)
-            ])
-            usuario2Label.isHidden=true
-            usuario2TxtField.isHidden=true
-            verifyButtonEnabled()
-        }else{
-            deleteTopConstrainstJugarButton()
+        if (row==0){
+            changeTxtFieldsLocation(twoTxtFields: true)
+        }else if row == 1{
+            changeTxtFieldsLocation(twoTxtFields: false)
+        }else if row == 2{
+            changeTxtFieldsLocation(twoTxtFields: false)
+        }
+    }
+    func changeTxtFieldsLocation(twoTxtFields:Bool){
+        deleteTopConstrainstJugarButton()
+        if twoTxtFields{
             NSLayoutConstraint.activate([
                 jugarButton.topAnchor.constraint(equalTo: usuario2TxtField.bottomAnchor, constant: 8)
             ])
             usuario2Label.isHidden=false
             usuario2TxtField.isHidden=false
-            verifyButtonEnabled()
+        }else {
+            NSLayoutConstraint.activate([
+                jugarButton.topAnchor.constraint(equalTo: usuario1TxtField.bottomAnchor, constant: 8)
+            ])
+            usuario2Label.isHidden=true
+            usuario2TxtField.isHidden=true
         }
+        verifyButtonEnabled()
     }
     func verifyButtonEnabled(){
         if selectedGameIndex==0{
@@ -90,7 +98,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             }else {
                 jugarButton.isEnabled=false
             }
-        }else if selectedGameIndex == 1{
+        }else if selectedGameIndex == 1||selectedGameIndex == 2{
             if !usuario1TxtField.text!.isEmpty{
                 jugarButton.isEnabled=true
             }else {
@@ -103,17 +111,31 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             pushToPokerWindow()
         }else if selectedGameIndex == 1{
             pushToTocameWindow()
+        }else if selectedGameIndex == 2{
+            pushToGenerala()
         }
     }
     func pushToPokerWindow(){
         let pokerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PokerViewController") as! PokerViewController
         pokerViewController.player1Name=usuario1TxtField.text!
         pokerViewController.player2Name=usuario2TxtField.text!
+        clearTxtFields()
         navigationController?.pushViewController(pokerViewController, animated: true)
+    }
+    func clearTxtFields(){
+        usuario1TxtField.text=""
+        usuario2TxtField.text=""
+        jugarButton.isEnabled=false
+    }
+    func pushToGenerala(){
+        let generalaViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GeneralaViewController") as! GeneralaViewController
+        clearTxtFields()
+        navigationController?.pushViewController(generalaViewController, animated: true)
     }
     func pushToTocameWindow(){
         let tocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TocameViewController") as! TocameViewController
         tocameViewController.nombreJugador=usuario1TxtField.text!
+        clearTxtFields()
         navigationController?.pushViewController(tocameViewController, animated: true)
     }
     
