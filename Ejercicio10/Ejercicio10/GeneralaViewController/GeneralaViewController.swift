@@ -14,7 +14,7 @@ class GeneralaViewController: UIViewController {
         reRollButton.setTitle("Tirar dados(\(tiradasRestantes))", for: .normal)
         for view in dadosStackView.arrangedSubviews {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-            view.isUserInteractionEnabled = true // MUY IMPORTANTE
+            view.isUserInteractionEnabled = true
             view.addGestureRecognizer(tapGesture)
         }
     }

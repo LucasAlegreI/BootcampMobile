@@ -127,16 +127,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nG-vb-oup" userLabel="NameLabel">
-                                <rect key="frame" x="16" y="118" width="75" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.24863277719999999" green="0.28403201319999999" blue="0.96486632360000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puntaje" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Bc-T2-GfH" userLabel="PuntajeLabel">
-                                <rect key="frame" x="134" y="118" width="124" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="124" id="e8J-mS-skR"/>
-                                </constraints>
+                                <rect key="frame" x="15.999999999999996" y="118" width="47.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.24863277719999999" green="0.28403201319999999" blue="0.96486632360000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -153,10 +144,19 @@
                                     <action selector="top5ButtonAction:" destination="FgO-YH-nvm" eventType="touchUpInside" id="TB9-vb-egi"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTl-wf-vbY" userLabel="temporizadorLabel">
-                                <rect key="frame" x="279" y="118" width="98" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTl-wf-vbY" userLabel="temporizadorLabel">
+                                <rect key="frame" x="147" y="118" width="98" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="98" id="Hw5-6J-aBb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.24863277719999999" green="0.28403201319999999" blue="0.96486632360000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puntaje" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Bc-T2-GfH" userLabel="PuntajeLabel">
+                                <rect key="frame" x="253" y="118" width="124" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="124" id="e8J-mS-skR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.24863277719999999" green="0.28403201319999999" blue="0.96486632360000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -167,17 +167,17 @@
                         <color key="backgroundColor" red="0.0" green="0.017516977145652202" blue="0.24621566300539621" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="ndJ-Vd-ya7" firstAttribute="top" secondItem="ZFP-x1-37g" secondAttribute="bottom" constant="8" symbolic="YES" id="3iP-er-Dih"/>
-                            <constraint firstItem="6Bc-T2-GfH" firstAttribute="leading" secondItem="6nG-vb-oup" secondAttribute="trailing" constant="43" id="8GZ-9G-rTa"/>
-                            <constraint firstItem="eTl-wf-vbY" firstAttribute="leading" secondItem="6Bc-T2-GfH" secondAttribute="trailing" constant="21" id="C86-Uc-Tot"/>
                             <constraint firstItem="fs1-oF-nUP" firstAttribute="trailing" secondItem="ZFP-x1-37g" secondAttribute="trailing" constant="16" id="EZU-dp-9xU"/>
                             <constraint firstItem="6nG-vb-oup" firstAttribute="leading" secondItem="fs1-oF-nUP" secondAttribute="leading" constant="16" id="Ffr-zm-1Mv"/>
                             <constraint firstItem="ndJ-Vd-ya7" firstAttribute="centerX" secondItem="Lbd-CD-9Cp" secondAttribute="centerX" id="IIw-ze-5bP"/>
+                            <constraint firstItem="fs1-oF-nUP" firstAttribute="trailing" secondItem="6Bc-T2-GfH" secondAttribute="trailing" constant="16" id="Qdd-oV-byk"/>
                             <constraint firstItem="bA9-GM-Yw0" firstAttribute="leading" secondItem="fs1-oF-nUP" secondAttribute="leading" constant="24" id="TOD-xv-66V"/>
                             <constraint firstItem="ZFP-x1-37g" firstAttribute="leading" secondItem="fs1-oF-nUP" secondAttribute="leading" constant="16" id="Tou-Yb-pOS"/>
                             <constraint firstItem="ZFP-x1-37g" firstAttribute="top" secondItem="6nG-vb-oup" secondAttribute="bottom" constant="8" id="UGi-pB-Guz"/>
                             <constraint firstItem="ndJ-Vd-ya7" firstAttribute="leading" secondItem="bA9-GM-Yw0" secondAttribute="trailing" constant="72" id="YBu-vv-aSq"/>
                             <constraint firstItem="bA9-GM-Yw0" firstAttribute="bottom" secondItem="fs1-oF-nUP" secondAttribute="bottom" id="YT1-Rh-0s1"/>
-                            <constraint firstItem="fs1-oF-nUP" firstAttribute="trailing" secondItem="eTl-wf-vbY" secondAttribute="trailing" constant="16" id="aAN-qb-Fec"/>
+                            <constraint firstItem="eTl-wf-vbY" firstAttribute="leading" secondItem="6nG-vb-oup" secondAttribute="trailing" constant="83.329999999999998" id="dRk-5G-LwL"/>
+                            <constraint firstItem="6Bc-T2-GfH" firstAttribute="leading" secondItem="eTl-wf-vbY" secondAttribute="trailing" constant="8" id="ed6-B9-ZJZ"/>
                             <constraint firstItem="eTl-wf-vbY" firstAttribute="top" secondItem="fs1-oF-nUP" secondAttribute="top" id="hYV-Cg-2jc"/>
                             <constraint firstItem="6nG-vb-oup" firstAttribute="top" secondItem="fs1-oF-nUP" secondAttribute="top" id="jgh-7X-Mm9"/>
                             <constraint firstItem="ndJ-Vd-ya7" firstAttribute="bottom" secondItem="fs1-oF-nUP" secondAttribute="bottom" id="qLW-zy-0Gm"/>
@@ -195,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="slK-6E-tvH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3267.9389312977096" y="29.577464788732396"/>
+            <point key="canvasLocation" x="2384" y="10"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SJK-g4-Uda">
@@ -485,10 +485,18 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Lgh-t8-GCt" userLabel="puntajesTable">
                                 <rect key="frame" x="16" y="118" width="361" height="402"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mejores puntajes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zxt-MQ-qJo">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.3105293272470927" green="0.34964207207201814" blue="0.71597636114690721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cHX-R6-76T"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.39333587694731537" green="0.4649103322685314" blue="0.85409522302371943" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="cHX-R6-76T" firstAttribute="bottom" secondItem="Lgh-t8-GCt" secondAttribute="bottom" constant="264" id="GL5-ue-bMk"/>
                             <constraint firstItem="Lgh-t8-GCt" firstAttribute="leading" secondItem="cHX-R6-76T" secondAttribute="leading" constant="16" id="emi-ef-8jl"/>
@@ -502,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpM-SY-oMh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1675.5725190839694" y="9.8591549295774659"/>
+            <point key="canvasLocation" x="3065" y="10"/>
         </scene>
         <!--Generala View Controller-->
         <scene sceneID="Rox-l1-Yba">
@@ -628,7 +636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQX-Ex-t3b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2316.7938931297708" y="26.760563380281692"/>
+            <point key="canvasLocation" x="1694" y="10"/>
         </scene>
     </scenes>
     <resources>

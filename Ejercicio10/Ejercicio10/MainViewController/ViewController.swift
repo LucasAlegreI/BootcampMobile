@@ -78,7 +78,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         deleteTopConstrainstJugarButton()
         if twoTxtFields{
             NSLayoutConstraint.activate([
-                jugarButton.topAnchor.constraint(equalTo: usuario2TxtField.bottomAnchor, constant: 8)
+                jugarButton.topAnchor.constraint(equalTo:usuario2TxtField.bottomAnchor, constant: 8)
             ])
             usuario2Label.isHidden=false
             usuario2TxtField.isHidden=false
