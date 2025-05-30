@@ -8,6 +8,9 @@ class GeneralaViewController: UIViewController {
     var tiradasRestantes = 3
     override func viewDidLoad() {
         super.viewDidLoad()
+        Start()
+    }
+    func Start(){
         generalaController.rollDices()
         gameTypeLabel.text = generalaController.getGameType()
         configurarDados(stack: dadosStackView)
@@ -35,7 +38,7 @@ class GeneralaViewController: UIViewController {
             }
         }
     }
-    func diceSomeDados(stack: UIStackView){
+    func tirarSomeDados(stack: UIStackView){
         var dadosToChange : [Int] = []
         for i in 0..<stack.arrangedSubviews.count {
             let contenedor = stack.arrangedSubviews[i]
@@ -54,7 +57,7 @@ class GeneralaViewController: UIViewController {
         gameTypeLabel.text = generalaController.getGameType()
     }
     @IBAction func reRollButtonAction(_ sender: Any) {
-        diceSomeDados(stack: dadosStackView)
+        tirarSomeDados(stack: dadosStackView)
     }
 }
 

@@ -2,7 +2,7 @@ import UIKit
 
 class PuntajeTocameViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var puntajesTable: UITableView!
-    var puntajes : [(String,Int)] = []
+    var puntajes : [(String,String)] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         puntajesTable.dataSource = self
@@ -14,8 +14,7 @@ class PuntajeTocameViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        var item = puntajes[indexPath.row]
-        item.0.removeLast()
+        let item = puntajes[indexPath.row]
         cell.textLabel?.text = item.0
         cell.detailTextLabel?.text = "Puntaje: \(item.1)"
         return cell

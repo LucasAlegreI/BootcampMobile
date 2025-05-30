@@ -15,16 +15,17 @@ class TocameViewController: UIViewController {
     var nombreJugador = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    func Start(){
         nameLabel.text = nombreJugador
         puntajeLabel.text = "0"
         top5Controller.chargeTop5()
         tocameButtonsController.setRefreshPuntaje(newRefreshPuntaje: refreshPuntaje)
-        tocameButtonsController.setMax(areaInstanciable: areaInstanciable)
+        tocameButtonsController.setMax(areaInstanciable: areaInstanciable)        
     }
-    
     @IBAction func top5ButtonAction(_ sender: Any) {
         let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
-        puntajeTocameViewController.puntajes = top5Controller.top5Ordenado
+        puntajeTocameViewController.puntajes = SaveReadController().returnPuntajes()
         puntajeTocameViewController.modalPresentationStyle = .automatic // o .pageSheet / .fullScreen
         puntajeTocameViewController.modalTransitionStyle = .coverVertical
         present(puntajeTocameViewController, animated: true, completion: nil)
@@ -32,7 +33,7 @@ class TocameViewController: UIViewController {
     func onFinish(){
         tocameButtonsController.botonCreado?.removeFromSuperview()
         playing=false
-        top5Controller.addScoreToTop5(score: (nombreJugador,puntaje) )
+        SaveReadController().addScoreToDataBase(username: nombreJugador, puntaje: puntajeLabel.text!.replacingOccurrences(of: "Puntaje: ", with: ""))
         top5Button.isHidden=false
     }
     func refreshPuntaje(){

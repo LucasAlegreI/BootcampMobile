@@ -22,7 +22,7 @@ class TocameButtonsController{
         let position=generateRandomPosition()
         botonCreado = UIButton(type: .system)
         botonCreado!.frame = CGRect(x:position.0,y:position.1,width: anchoBoton,height: altoBoton)
-        botonCreado!.backgroundColor = .blue
+        botonCreado!.backgroundColor = UIColor(red: 199/255, green: 172/255, blue: 61/255, alpha: 1)
         botonCreado!.layer.cornerRadius = anchoBoton/2
         botonCreado!.addTarget(self, action: #selector(newButtonAction), for: .touchUpInside)
         areaInstanciable.addSubview(botonCreado!)

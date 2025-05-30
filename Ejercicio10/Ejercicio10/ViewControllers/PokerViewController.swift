@@ -10,11 +10,10 @@ class PokerViewController: UIViewController {
     var backgrounds: [UIView] = []
     var isPlaying = false
     var player1Name = ""
-    var player2Name = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         player1Label.text = player1Name
-        player2Label.text = player2Name
+        player2Label.text = "Chat gpt"
         StartGame()
     }
 
@@ -35,7 +34,7 @@ class PokerViewController: UIViewController {
             player1Hand.backgroundColor = .green
             player2Hand.backgroundColor = .red
         } else if ganador == 1 {
-            shotAlert(textToShow: "El ganador es: " + player2Name)
+            shotAlert(textToShow: "El ganador es: Chat gpt")
             player1Hand.backgroundColor = .red
             player2Hand.backgroundColor = .green
         } else {
