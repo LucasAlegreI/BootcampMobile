@@ -15,13 +15,14 @@ class TocameViewController: UIViewController {
     var nombreJugador = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        Start()
     }
     func Start(){
         nameLabel.text = nombreJugador
         puntajeLabel.text = "0"
         top5Controller.chargeTop5()
         tocameButtonsController.setRefreshPuntaje(newRefreshPuntaje: refreshPuntaje)
-        tocameButtonsController.setMax(areaInstanciable: areaInstanciable)        
+        tocameButtonsController.setMax(areaInstanciable: areaInstanciable)
     }
     @IBAction func top5ButtonAction(_ sender: Any) {
         let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
