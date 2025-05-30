@@ -276,7 +276,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-Aw-219">
                                 <rect key="frame" x="159" y="749" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Top">
+                                <buttonConfiguration key="configuration" style="plain" title="Top 10">
                                     <color key="baseForegroundColor" red="0.79817640781402588" green="0.67707139253616333" blue="0.077055491507053375" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>

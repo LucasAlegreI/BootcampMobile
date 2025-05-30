@@ -53,7 +53,7 @@ class LogginViewController: UIViewController {
         }
     @IBAction func top10ButtonAction(_ sender: Any) {
         let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
-        puntajeTocameViewController.puntajes = SaveReadController().returnPuntajes()
+        puntajeTocameViewController.puntajes = SaveReadController().returnPuntajes(numberOfScores: 10)
         puntajeTocameViewController.modalPresentationStyle = .automatic // o .pageSheet / .fullScreen
         puntajeTocameViewController.modalTransitionStyle = .coverVertical
         present(puntajeTocameViewController, animated: true, completion: nil)

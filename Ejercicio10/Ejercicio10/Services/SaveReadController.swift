@@ -56,6 +56,17 @@ class SaveReadController{
         }
         return sortPuntajes(puntajes: toReturn)
     }
+    func returnPuntajes(numberOfScores:Int) -> [(String,String)]{
+        var toReturn : [(String,String)] = []
+        for (username, nivel2Dict) in dataBase {
+            if let nivel3Dict=nivel2Dict["Puntajes"]{
+                for puntaje in nivel3Dict{
+                    toReturn.append((username,puntaje.1))
+                }
+            }
+        }
+        return sortPuntajes(puntajes: Array(toReturn.prefix(numberOfScores)))
+    }
     func returnPuntajes(username : String) -> [(String,String)]{
         var toReturn : [(String,String)] = []
         if let nivel2Dict=dataBase[username]{
