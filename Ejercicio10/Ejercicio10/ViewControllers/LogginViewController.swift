@@ -1,14 +1,38 @@
 import UIKit
-
+import Alamofire
 class LogginViewController: UIViewController {
     
     @IBOutlet weak var titleImage: UIImageView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
-    override func viewDidLoad() {
+    override func viewDidLoad()  {
         super.viewDidLoad()
+        Task{
+            await findAPokemon(by: "5")
+        }
         Start()
+    }
+    func findAPokemon(by nameOrId:String) async{
+        let url = "https://pokeapi.co/api/v2/pokemon/\(nameOrId)"
+        do{
+            let pokemon = try await AF.request(url).validate().serializingDecodable(Pokemon.self).value
+            print (pokemon.name)
+        } catch{
+            print("Error al obtener el Pokémon: \(error)")
+        }
+    }
+    struct Pokemon:Decodable {
+        let name: String
+        let 
+    }
+    struct abilities:Decodable{
+        let is_hidden : Bool
+        let slot : Int
+    }
+    struct ability:Decodable{
+        let name: String
+        let url: String
     }
     func Start(){
         //passwordTextField.textContentType = .password
@@ -16,7 +40,7 @@ class LogginViewController: UIViewController {
         loginButton.isEnabled=false
         titleImage.layer.cornerRadius=50
         usernameTextField.addTarget(self, action: #selector(isLoginButtonActive), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(isLoginButtonActive), for: .editingChanged)        
+        passwordTextField.addTarget(self, action: #selector(isLoginButtonActive), for: .editingChanged)
     }
     @IBAction func registerButtonAction(_ sender: Any) {
         let registerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController

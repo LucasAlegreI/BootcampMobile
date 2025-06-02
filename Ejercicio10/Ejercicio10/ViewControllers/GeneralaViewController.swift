@@ -1,5 +1,4 @@
 import UIKit
-
 class GeneralaViewController: UIViewController {
     @IBOutlet weak var dadosStackView: UIStackView!
     @IBOutlet weak var gameTypeLabel: UILabel!
