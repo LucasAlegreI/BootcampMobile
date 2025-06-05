@@ -6,7 +6,6 @@ class RegisterViewController: UIViewController {
     let passwordLabel = UILabel()
     let correoLabel = UILabel()
     let newButton = UIButton()
-    let authService = AuthService()
     var textFields : [UITextField] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,6 +13,7 @@ class RegisterViewController: UIViewController {
         configureLabels()
         configureStacksViews()
     }
+    
     func configureStacksViews(){
         let correoField = UIStackView(arrangedSubviews: [correoLabel,correoTxtField])
         let passwordField = UIStackView(arrangedSubviews: [passwordLabel,passwordTxtField])
@@ -37,6 +37,7 @@ class RegisterViewController: UIViewController {
         ])
         configureButton(bottomAnchor: stackView.bottomAnchor)
     }
+    
     func configureButton(bottomAnchor: NSLayoutYAxisAnchor){
         view.addSubview(newButton)
         newButton.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +52,7 @@ class RegisterViewController: UIViewController {
         ])
         newButton.addTarget(self, action: #selector(register), for: .touchUpInside)
     }
+    
     func configureLabels(){
         passwordLabel.text = "Contraseña:"
         correoLabel.text = "Correo:"
@@ -59,6 +61,7 @@ class RegisterViewController: UIViewController {
             label.textColor = UIColor(red: 199/255, green: 172/255, blue: 61/255, alpha: 1)
         }
     }
+    
     func configureTextFields(){
         textFields = [correoTxtField,passwordTxtField]
         for textField in textFields{
@@ -106,7 +109,7 @@ class RegisterViewController: UIViewController {
             return
         }
         Task{
-            let textForAlert = await authService.signUpAccountService(email: correoTxtField.text!, password: passwordTxtField.text!)
+            let textForAlert = await AuthUseCase().signUpAccount(email: correoTxtField.text!, password: passwordTxtField.text!)
             shotAlert(textToShow:textForAlert)
         }
     }

@@ -3,7 +3,7 @@ class AuthService{
     func signUpAccountService(email:String,password:String) async -> String{
         let response = await AuthRepository().signupAccountRepository(email: email, password: password)
         if let error = response.error {
-            return "No se pudo conectar al servidor. Verifica tu conexión o intenta más tarde. \(error)"
+            return "No se pudo conectar al servidor. Verifica tu conexión o intenta más tarde."
         }
         guard let statusCode = response.response?.statusCode else {
             return "No se recibió respuesta válida del servidor."
@@ -51,12 +51,5 @@ class AuthService{
         default:
             return "Respuesta inesperada del servidor (\(statusCode))"
         }
-    }
-    struct LoginReceiveModel:Decodable{
-        let access_token : String
-        let user:User
-    }
-    struct User:Decodable{
-        let id:String
-    }
+    }    
 }

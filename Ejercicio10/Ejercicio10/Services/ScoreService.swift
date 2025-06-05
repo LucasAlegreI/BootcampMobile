@@ -1,7 +1,7 @@
 import Alamofire
 import UIKit
 class ScoreService{
-    func getListOfScoreService(token : String) async -> [Int]{
+    func getListOfScoresService(token : String) async -> [Int]{
         let response = await ScoreRepository().getListOfScoresRepository()
         if let error = response.error {
             print("Error de red o de Alamofire: \(error)")
@@ -34,7 +34,8 @@ class ScoreService{
         }
         return toReturn
     }
-    func getMyListOfScoreService(id : String, token:String) async -> [Int]{
+    
+    func getMyListOfScoresService(id : String, token:String) async -> [Int]{
         let response = await ScoreRepository().getMyListOfScoresRepository(id: id, token: token)
         if let error = response.error {
             print("Error de red o de Alamofire: \(error)")
@@ -67,6 +68,7 @@ class ScoreService{
         }
         return toReturn
     }
+    
     func createScoreService(token:String, userId:String, score:Int)async->String{
         let response = await ScoreRepository().createScoreRepository(token: token, userId: userId, score: score)
         if let _ = response.error {
@@ -85,8 +87,5 @@ class ScoreService{
         default:
             return "Respuesta inesperada del servidor (\(statusCode))"
         }
-    }
-    struct ScoresModel:Decodable{
-        let score:Int
     }
 }

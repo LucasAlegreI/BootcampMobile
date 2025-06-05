@@ -1,7 +1,6 @@
 import Alamofire
 import UIKit
 class AuthRepository{
-    
     func signupAccountRepository(email: String, password: String) async -> DataResponse<Data,AFError> {
         let url = "https://lvmybcyhrbisfjouhbrx.supabase.co/auth/v1/signup"
         let authSendModel = AuthSendModel(email: email, password: password)
@@ -9,7 +8,7 @@ class AuthRepository{
             "apikey":Constants.apiKey,
             "Content-Type": "application/json"]
         let response = await AF.request(url,method: .post,parameters: authSendModel,encoder: JSONParameterEncoder.default,headers: headers).serializingData().response
-        return response        
+        return response
     }
 
     func loginAccountRepository(email: String, password: String) async -> DataResponse<Data, AFError> {
@@ -27,9 +26,5 @@ class AuthRepository{
             headers: headers
         ).serializingData().response
         return response
-    }   
-    struct AuthSendModel:Encodable{
-        let email : String
-        let password : String
     }
 }

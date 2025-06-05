@@ -135,7 +135,6 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         rightButton.tintColor=Constants.fontColor
         leftButton.addTarget(self, action: #selector(prevPage), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
-        UserDefaults.standard.string(forKey: <#T##String#>)
         view.addSubview(leftButton)
         view.addSubview(rightButton)
         
@@ -220,7 +219,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
         Task{
             if let token = UserDefaults.standard.string(forKey: "Token"), let id = UserDefaults.standard.string(forKey: "Id"){
-                puntajeTocameViewController.puntajes = await ScoreService().getMyListOfScoreService(id: id, token: token)
+                puntajeTocameViewController.puntajes = await ScoreService().getMyListOfScoresService(id: id, token: token)
             }
             puntajeTocameViewController.modalPresentationStyle = .automatic
             puntajeTocameViewController.modalTransitionStyle = .coverVertical
