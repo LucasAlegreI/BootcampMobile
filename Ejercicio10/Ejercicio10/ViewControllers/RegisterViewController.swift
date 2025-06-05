@@ -1,16 +1,12 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-    let usernameTxtField = UITextField()
     let passwordTxtField = UITextField()
     let correoTxtField = UITextField()
-    let adressTxtField = UITextField()
-    let usernameLabel = UILabel()
     let passwordLabel = UILabel()
     let correoLabel = UILabel()
-    let adressLabel = UILabel()
     let newButton = UIButton()
-    let saveReadController = SaveReadController()
+    let authService = AuthService()
     var textFields : [UITextField] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,17 +15,15 @@ class RegisterViewController: UIViewController {
         configureStacksViews()
     }
     func configureStacksViews(){
-        let usernameField = UIStackView(arrangedSubviews: [usernameLabel, usernameTxtField])
-        let passwordField = UIStackView(arrangedSubviews: [passwordLabel,passwordTxtField])
         let correoField = UIStackView(arrangedSubviews: [correoLabel,correoTxtField])
-        let adressField = UIStackView(arrangedSubviews: [adressLabel,adressTxtField])
-        let fields = [usernameField,passwordField,correoField,adressField]
+        let passwordField = UIStackView(arrangedSubviews: [passwordLabel,passwordTxtField])
+        let fields = [passwordField,correoField]
         for field in fields{
             field.axis = .horizontal
             field.alignment = .fill
             field.distribution = .fill
         }
-        let stackView = UIStackView(arrangedSubviews: [usernameField,passwordField,correoField,adressField])
+        let stackView = UIStackView(arrangedSubviews: [correoField,passwordField])
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -58,27 +52,23 @@ class RegisterViewController: UIViewController {
         newButton.addTarget(self, action: #selector(register), for: .touchUpInside)
     }
     func configureLabels(){
-        usernameLabel.text = "Usuario:"
         passwordLabel.text = "Contraseña:"
         correoLabel.text = "Correo:"
-        adressLabel.text = "Dirección:"
-        let labels = [usernameLabel,passwordLabel,correoLabel, adressLabel]
+        let labels = [correoLabel,passwordLabel]
         for label in labels {
             label.textColor = UIColor(red: 199/255, green: 172/255, blue: 61/255, alpha: 1)
         }
     }
     func configureTextFields(){
-        textFields = [usernameTxtField,passwordTxtField,correoTxtField,adressTxtField]
+        textFields = [correoTxtField,passwordTxtField]
         for textField in textFields{
             textField.widthAnchor.constraint(equalToConstant: 260).isActive=true
             textField.borderStyle = .roundedRect
             textField.backgroundColor = .systemBackground
             textField.autocapitalizationType = .none
         }
-        usernameTxtField.placeholder = "Nombre de usuario"
-        passwordTxtField.placeholder = "Contraseña"
         correoTxtField.placeholder = "Correo"
-        adressTxtField.placeholder = "Direccion"
+        passwordTxtField.placeholder = "Contraseña"
     }
     func areFieldsEmpty()->Bool{
         for field in textFields {
@@ -95,7 +85,7 @@ class RegisterViewController: UIViewController {
             preferredStyle: .alert
         )
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            if textToShow=="se ha registrado correctamente"{
+            if textToShow=="Se ha registrado exitosamente."{
                 self.dismiss(animated: true, completion: nil)
             }
         }        
@@ -104,24 +94,21 @@ class RegisterViewController: UIViewController {
     }
 
     @objc func register(){
-        if usernameTxtField.text!.isEmpty || passwordTxtField.text!.isEmpty || correoTxtField.text!.isEmpty || adressTxtField.text!.isEmpty{
+        if  passwordTxtField.text!.isEmpty || correoTxtField.text!.isEmpty {
             var stringToSend = "Le falta completar los siguiente campos:"
-            if usernameTxtField.text!.isEmpty{
-                stringToSend += "\n Nombre de usuario"
+            if correoTxtField.text!.isEmpty{
+                stringToSend += "\n Correo"
             }
             if passwordTxtField.text!.isEmpty{
                 stringToSend += "\n Contraseña"
             }
-            if correoTxtField.text!.isEmpty{
-                stringToSend += "\n Correo"
-            }
-            if adressTxtField.text!.isEmpty{
-                stringToSend += "\n Direccion"
-            }
             shotAlert(textToShow: stringToSend)
             return
         }
-        shotAlert(textToShow:saveReadController.registerNewUser(username: usernameTxtField.text!, password: passwordTxtField.text!, correo: correoTxtField.text!, adress: adressTxtField.text!))
+        Task{
+            let textForAlert = await authService.signUpAccountService(email: correoTxtField.text!, password: passwordTxtField.text!)
+            shotAlert(textToShow:textForAlert)
+        }
     }
 }
 

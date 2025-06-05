@@ -1,132 +1,251 @@
 import UIKit
 
-class MainViewController: UIViewController  {
-    @IBOutlet weak var gameTypeImage: UIImageView!
-    @IBOutlet weak var welcomeTitleLabel: UILabel!
-    @IBOutlet weak var textToPicker: UITextField!
-    let gamesNames = ["Poker", "Tocame", "Generala"]
-    let gamePicker = UIPickerView()
-    var selectedGameIndex: Int = 0
-    var nameOfUser = ""
-    @IBOutlet weak var ayudaLabel: UILabel!
-    let pokerDescription = "Juega contra chatgpt una mano de poker, el que tenga mejor mano gana, el orden de juego es el siguiente: Escalera a color, poker, full house, color, escalera, trio, doble par y carta alta, en el caso de que ambos jugadores tengan el mismo juego se define por quien tenga la carta mas alta en su mano, si tienen la misma mano es empate."
-    let generalaDescription = "Tira los dados para lograr el mejor juego posible, el orde de juego es el siguiente: generala(5 dados iguales), poker(4 dados iguales), full house(3 dados de un valor, y dos de otro valor) y escalera(5 dados con valores consecutivos."
-    let tocameDescription = "Intenta batir tu record, cada vez que selecciones el circulo cambiara de posicion y ganaras un punto, compite contra vos mismo y contra los demas usuarios por tener la mayor cantidad de puntos."
+class MainViewController: UIViewController, UIScrollViewDelegate {
+
+    let scrollView = UIScrollView()
+    let pageControl = UIPageControl()
+    let leftButton = UIButton(type: .system)
+    let rightButton = UIButton(type: .system)
+    let jugarButton = UIButton(type: .system)
+    let misPuntajesButton = UIButton(type: .system)
+    let ayudaButton = UIButton (type: .system)
+    let ayudaLabel = UILabel()
+    let imageNames = ["Poker", "Tocame", "Generala"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerStart()
-        labelsStart()
+        
+        setupScrollView()
+        setupPages()
+        setupPageControl()
+        setupDirectionsButtons()
+        updateUI(for: 0)
+        setupjugarButton()
+        setupMisPuntajesButton()
+        setupAyuda()
+        updateNavigationButtonsState()
     }
-    func labelsStart(){
+
+    func setupScrollView() {
+        scrollView.isPagingEnabled = true
+        scrollView.delegate = self
+        scrollView.showsHorizontalScrollIndicator = false
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.heightAnchor.constraint(equalToConstant: 300)
+        ])
+    }
+    
+    func setupPages() {
+        for (index, name) in imageNames.enumerated() {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: name)
+            imageView.contentMode = .scaleToFill
+            scrollView.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
+                imageView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+                imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: CGFloat(index) * view.frame.width)
+            ])
+        }
+        scrollView.contentSize = CGSize(width: CGFloat(imageNames.count) * view.frame.width, height: 300)
+    }
+    
+    func setupPageControl() {
+        pageControl.numberOfPages = imageNames.count
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = .lightGray
+        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.addTarget(self, action: #selector(pageControlChanged), for: .valueChanged)
+        view.addSubview(pageControl)
+        
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pageControl.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10),
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
+    func setupjugarButton(){
+        jugarButton.setTitle("Jugar", for: .normal)
+        jugarButton.titleLabel?.font = .systemFont(ofSize: 24)
+        jugarButton.addTarget(self, action: #selector(jugarButtonAction), for: .touchUpInside)
+        jugarButton.tintColor = Constants.fontColor
+        view.addSubview(jugarButton)
+        jugarButton.translatesAutoresizingMaskIntoConstraints=false
+        NSLayoutConstraint.activate([
+            jugarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            jugarButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor,constant: 20),
+            jugarButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    func setupMisPuntajesButton(){
+        misPuntajesButton.setTitle("Mis Puntajes", for: .normal)
+        misPuntajesButton.titleLabel?.font = .systemFont(ofSize: 24)
+        misPuntajesButton.addTarget(self, action: #selector(misPuntajesButtonAction), for: .touchUpInside)
+        misPuntajesButton.tintColor = Constants.fontColor
+        view.addSubview(misPuntajesButton)
+        misPuntajesButton.translatesAutoresizingMaskIntoConstraints=false
+        NSLayoutConstraint.activate([
+            misPuntajesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            misPuntajesButton.topAnchor.constraint(equalTo: jugarButton.bottomAnchor,constant: 20),
+            misPuntajesButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    func setupAyuda(){
+        ayudaButton.setTitle("Ayuda", for: .normal)
+        ayudaButton.titleLabel?.font = .systemFont(ofSize: 24)
+        ayudaButton.addTarget(self, action: #selector(ayudaButtonAction), for: .touchUpInside)
+        ayudaButton.tintColor = Constants.fontColor
+        view.addSubview(ayudaButton)
+        ayudaButton.translatesAutoresizingMaskIntoConstraints=false
+        ayudaLabel.textAlignment = .justified
+        ayudaLabel.font = .systemFont(ofSize: 18)
         ayudaLabel.numberOfLines = 0
         ayudaLabel.lineBreakMode = .byWordWrapping
-        welcomeTitleLabel.text = "Bienvenido \(nameOfUser)"
+        ayudaLabel.translatesAutoresizingMaskIntoConstraints=false
+        ayudaLabel.text=""
+        ayudaLabel.textColor = Constants.fontColor
+        view.addSubview(ayudaLabel)
+        NSLayoutConstraint.activate([
+            ayudaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -10),
+            ayudaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 10),
+            ayudaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ayudaButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ayudaButton.bottomAnchor.constraint(equalTo: ayudaLabel.topAnchor),
+            ayudaButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
-    func pickerStart(){
-        textToPicker.tintColor = .clear
-        gamePicker.delegate = self
-        gamePicker.dataSource = self
-        textToPicker.delegate = self
-        textToPicker.inputView = gamePicker
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Listo", style: .plain, target: self, action: #selector(cerrarPicker))
-        toolbar.setItems([doneButton], animated: false)
-        toolbar.isUserInteractionEnabled = true
-        textToPicker.inputAccessoryView = toolbar
-        pickerView(gamePicker, didSelectRow: 0, inComponent: 0)
+
+    func setupDirectionsButtons() {
+        leftButton.setTitle("←", for: .normal)
+        rightButton.setTitle("→", for: .normal)
+        leftButton.titleLabel?.font = .systemFont(ofSize: 24)
+        rightButton.titleLabel?.font = .systemFont(ofSize: 24)
+        leftButton.tintColor=Constants.fontColor
+        rightButton.tintColor=Constants.fontColor
+        leftButton.addTarget(self, action: #selector(prevPage), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
+        UserDefaults.standard.string(forKey: <#T##String#>)
+        view.addSubview(leftButton)
+        view.addSubview(rightButton)
+        
+        leftButton.translatesAutoresizingMaskIntoConstraints = false
+        rightButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            leftButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            leftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            rightButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            rightButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
     }
-    @IBAction func ayudaButtonAction(_ sender: Any) {
-        if !ayudaLabel.text!.isEmpty{
-            ayudaLabel.text=""
-            return
-        }
-        changeAyudaLabel()
-    }
-    func changeAyudaLabel(){
-        if selectedGameIndex==0{
-            ayudaLabel.text=pokerDescription
-        }else if selectedGameIndex==1{
-            ayudaLabel.text=tocameDescription
+    
+    func updateNavigationButtonsState(){
+        if pageControl.currentPage==0{
+            leftButton.isEnabled=false
+            rightButton.isEnabled=true
+        }else if pageControl.currentPage == pageControl.numberOfPages-1{
+            leftButton.isEnabled=true
+            rightButton.isEnabled=false
         }else{
-            ayudaLabel.text=generalaDescription
+            leftButton.isEnabled=true
+            rightButton.isEnabled=true
+        }
+        updateAyudaLabel()
+    }
+    
+    func updateAyudaLabel(){
+        guard let _ = ayudaLabel.text else { return }
+        if !ayudaLabel.text!.isEmpty{
+            ayudaLabel.text! = Constants.gamesDescription[pageControl.currentPage]
         }
     }
     
-    // Picker: cantidad de columnas
-    
-    @IBAction func jugarButtonAction(_ sender: Any) {
-        cerrarPicker()
-        if selectedGameIndex == 0{
-            pushToPokerWindow()
-        }else if selectedGameIndex == 1{
-            pushToTocameWindow()
-        }else if selectedGameIndex == 2{
-            pushToGenerala()
-        }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
+        updateUI(for: page)
     }
     
-    // Picker: título por fila
-    
-    func changeGameTypeImage(){
-        if selectedGameIndex == 0{
-            gameTypeImage.image=UIImage(named: "Poker")
-        }else if selectedGameIndex==1{
-            gameTypeImage.image=UIImage(named: "Tocame")
-        }else {
-            gameTypeImage.image=UIImage(named: "Generala")
-        }
+    @objc func pageControlChanged() {
+        scrollToPage(pageControl.currentPage)
     }
-    func pushToPokerWindow(){
+
+    @objc func nextPage() {
+        let next = min(pageControl.currentPage + 1, imageNames.count - 1)
+        scrollToPage(next)
+    }
+
+    @objc func prevPage() {
+        let prev = max(pageControl.currentPage - 1, 0)
+        scrollToPage(prev)
+    }
+
+    func scrollToPage(_ page: Int) {
+        let offset = CGPoint(x: view.frame.width * CGFloat(page), y: 0)
+        scrollView.setContentOffset(offset, animated: true)
+        updateUI(for: page)
+    }
+    
+    func updateUI(for page: Int) {
+        pageControl.currentPage = page
+        updateNavigationButtonsState()
+    }
+    
+    func pushToPokerGame(){
         let pokerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PokerViewController") as! PokerViewController
-        pokerViewController.player1Name=nameOfUser
         navigationController?.pushViewController(pokerViewController, animated: true)
     }
-    func pushToGenerala(){
-        let generalaViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GeneralaViewController") as! GeneralaViewController
-        navigationController?.pushViewController(generalaViewController, animated: true)
-    }
-    func pushToTocameWindow(){
+        
+    func pushToTocameGame(){
         let tocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TocameViewController") as! TocameViewController
-        tocameViewController.nombreJugador=nameOfUser
         navigationController?.pushViewController(tocameViewController, animated: true)
     }
     
-    @objc func cerrarPicker() {
-        textToPicker.resignFirstResponder()
-    }
-}
-extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
-    }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
-    }
-    @IBAction func misPuntajesButtonAction(_ sender: Any) {
-        let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
-        puntajeTocameViewController.puntajes = SaveReadController().returnPuntajes(username: nameOfUser)
-        puntajeTocameViewController.modalPresentationStyle = .automatic // o .pageSheet / .fullScreen
-        puntajeTocameViewController.modalTransitionStyle = .coverVertical
-        present(puntajeTocameViewController, animated: true, completion: nil)
+    func pushToGeneralaGame(){
+        let generalaViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GeneralaViewController") as! GeneralaViewController
+        navigationController?.pushViewController(generalaViewController, animated: true)
     }
     
-    // Picker: cantidad de filas
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        gamesNames.count
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        gamesNames[row]
-    }
-
-    // Al seleccionar una fila
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textToPicker.text = gamesNames[row]
-        selectedGameIndex = row
-        changeGameTypeImage()
-        if ayudaLabel.text!.isEmpty{
-            return
+    func pushToPuntajeTocame(){
+        let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
+        Task{
+            if let token = UserDefaults.standard.string(forKey: "Token"), let id = UserDefaults.standard.string(forKey: "Id"){
+                puntajeTocameViewController.puntajes = await ScoreService().getMyListOfScoreService(id: id, token: token)
+            }
+            puntajeTocameViewController.modalPresentationStyle = .automatic
+            puntajeTocameViewController.modalTransitionStyle = .coverVertical
+            present(puntajeTocameViewController, animated: true, completion: nil)
         }
-        changeAyudaLabel()
+    }
+    
+    @objc func jugarButtonAction(){
+        switch (pageControl.currentPage){
+        case 0: pushToPokerGame()
+        case 1: pushToTocameGame()
+        default: pushToGeneralaGame()
+        }
+    }
+    
+    @objc func misPuntajesButtonAction(){
+        pushToPuntajeTocame()
+    }
+    
+    @objc func ayudaButtonAction(){
+        if ayudaLabel.text!.isEmpty{
+            ayudaLabel.text!=Constants.gamesDescription[pageControl.currentPage]
+        }else{
+            ayudaLabel.text! = ""
+        }
     }
 }
+

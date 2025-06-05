@@ -26,16 +26,27 @@ class TocameViewController: UIViewController {
     }
     @IBAction func top5ButtonAction(_ sender: Any) {
         let puntajeTocameViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PuntajeTocameViewController") as! PuntajeTocameViewController
-        puntajeTocameViewController.puntajes = SaveReadController().returnPuntajes()
-        puntajeTocameViewController.modalPresentationStyle = .automatic // o .pageSheet / .fullScreen
-        puntajeTocameViewController.modalTransitionStyle = .coverVertical
-        present(puntajeTocameViewController, animated: true, completion: nil)
+        Task{
+            if let token = UserDefaults.standard.string(forKey: "Token"){
+                puntajeTocameViewController.puntajes = await ScoreService().getListOfScoreService(token: token)
+            }
+            puntajeTocameViewController.modalPresentationStyle = .automatic
+            puntajeTocameViewController.modalTransitionStyle = .coverVertical
+            present(puntajeTocameViewController, animated: true, completion: nil)
+        }
     }
     func onFinish(){
         tocameButtonsController.botonCreado?.removeFromSuperview()
         playing=false
-        SaveReadController().addScoreToDataBase(username: nombreJugador, puntaje: puntajeLabel.text!.replacingOccurrences(of: "Puntaje: ", with: ""))
+        addScoreToTop()
         top5Button.isHidden=false
+    }
+    func addScoreToTop(){
+        if let token=UserDefaults.standard.string(forKey: "Token"),let id = UserDefaults.standard.string(forKey: "Id"), let score = Int(puntajeLabel.text!.replacingOccurrences(of: "Puntaje: ", with: "")){
+            Task{
+                await ScoreService().createScoreService(token: token, userId: id, score: score)
+            }
+        }
     }
     func refreshPuntaje(){
         puntaje+=1
